@@ -18,4 +18,11 @@ type User = {
   user_id: string;
 };
 
-export type { User };
+type aiPromptItem = {
+  title: string;
+  command: string;
+  id: string;
+  type: "modify" | "prompt";
+};
+
+export type { User, aiPromptItem };

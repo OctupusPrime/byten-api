@@ -25,4 +25,12 @@ type aiPromptItem = {
   type: "modify" | "prompt";
 };
 
-export type { User, aiPromptItem };
+type NoteItem = {
+  title: string;
+  body: string;
+  color: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type { User, aiPromptItem, NoteItem };

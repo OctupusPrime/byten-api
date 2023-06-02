@@ -6,9 +6,9 @@ const router = new Router({
   prefix: "/ai-prompts",
 });
 
-router.get("/:type", aiController.getPrompts);
+router.get("/", aiController.getPrompts);
 router.post("/create", aiController.createPrompt);
 router.put("/:id", aiController.editPrompt);
-router.delete("/:id/:type", aiController.deletePrompt);
+router.delete("/:id", aiController.deletePrompt);
 
 export default router;

@@ -22,7 +22,7 @@ import type { Cntx } from "../types/oakRouter.ts";
 import type { User } from "../types/data.ts";
 
 export default {
-  getPrompts: async (ctx: Cntx<"/:type">): Promise<void> => {
+  getPrompts: async (ctx: Cntx<"/">): Promise<void> => {
     try {
       const user: User = ctx.state.payload;
 
@@ -63,7 +63,6 @@ export default {
         newPrompt.type,
         newPrompt.id
       );
-
       await setDoc(addRef, newPrompt);
 
       ctx.response.body = newPrompt;
@@ -94,7 +93,7 @@ export default {
 
       await updateDoc(editRef, reqData);
 
-      ctx.response.body = "success";
+      ctx.response.body = reqData;
     } catch (error) {
       ctx.response.status = 500;
       ctx.response.body = {
@@ -102,7 +101,7 @@ export default {
       };
     }
   },
-  deletePrompt: async (ctx: Cntx<"/:id/:type">): Promise<void> => {
+  deletePrompt: async (ctx: Cntx<"/:id">): Promise<void> => {
     try {
       const user: User = ctx.state.payload;
 

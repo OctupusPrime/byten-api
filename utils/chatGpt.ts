@@ -1,14 +1,14 @@
-import type { Message, ChatResponse, GPT3Response } from "../types/chatGpt.ts";
+import type { Message, GPT3Response } from "../types/chatGpt.ts";
 
 const autoCompleteMessage = async (
   commads: Message[]
-): Promise<ChatResponse> => {
+): Promise<GPT3Response> => {
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization:
-        "Bearer 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",
+        "Bearer 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",
     },
     body: JSON.stringify({
       model: "gpt-3.5-turbo",
@@ -23,20 +23,7 @@ const autoCompleteMessage = async (
 
   const gpt3Response: GPT3Response = await response.json();
 
-  return {
-    id: gpt3Response.id,
-    object: gpt3Response.object,
-    created: gpt3Response.created,
-    model: gpt3Response.model,
-    choices: gpt3Response.choices.map((choice) => ({
-      message: {
-        role: "assistant",
-        content: choice.text,
-      },
-      finish_reason: choice.finish_reason,
-      index: choice.index,
-    })),
-  };
+  return gpt3Response;
 };
 
 export { autoCompleteMessage };

@@ -1,27 +1,27 @@
 import type { Cntx } from "../types/oakRouter.ts";
 
-import { autoCompleteMessage } from "../utils/openAi.ts";
+import { autoCompleteMessage } from "../utils/chatGpt.ts";
+
+import { autoCompleteShema } from "../validations/aiAutoCompleteShemas.ts";
+
+import { aiRoleMessages } from '../data/chatGpt.ts'
 
 export default {
   autoComplete: async (ctx: Cntx<"/">): Promise<void> => {
     try {
-      const response = await autoCompleteMessage([
-        {
-          role: "system",
-          content:
-            "You are ai helper to improve or write markdown text for user notes.",
-        },
-        {
-          role: "system",
-          content:
-            "Respond only with markdown what user ask without aditional information.",
-        },
+      const reqData = await ctx.request.body().value;
+
+      autoCompleteShema.parse(reqData);
+
+      const aiResponse = await autoCompleteMessage([
+        ...aiRoleMessages,
         {
           role: "user",
-          content: "create table with fake data about cityes with 4 elements",
+          content: reqData.prompt,
         },
       ]);
-      ctx.response.body = response;
+      
+      ctx.response.body = aiResponse.choices[0];
     } catch (error) {
       ctx.response.status = 500;
       ctx.response.body = {

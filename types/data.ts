@@ -18,4 +18,19 @@ type User = {
   user_id: string;
 };
 
-export type { User };
+type aiPromptItem = {
+  title: string;
+  command: string;
+  id: string;
+  type: "modify" | "prompt";
+};
+
+type NoteItem = {
+  title: string;
+  body: string;
+  color: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type { User, aiPromptItem, NoteItem };
